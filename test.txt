@@ -1,0 +1,76 @@
+const event = {
+//     start: [2018, 5, 30, 6, 0],
+//     duration: { hours: 6, minutes: 30 },
+//     title: 'Bolder Boulder',
+//     description: 'Annual 10-kilometer run in Boulder, Colorado',
+//     location: 'Folsom Field, University of Colorado (finish line)',
+//     url: 'http://www.bolderboulder.com/',
+//     geo: { lat: 40.0095, lon: 105.2669 },
+//     categories: ['10k races', 'Memorial Day Weekend', 'Boulder CO'],
+//     status: 'CONFIRMED',
+//     organizer: { name: 'Admin', email: 'Race@BolderBOULDER.com' },
+//     attendees: [
+//       { name: 'Adam Gibbons', email: 'adam@example.com', rsvp: true, partstat: 'ACCEPTED', role: 'REQ-PARTICIPANT' },
+//       { name: 'Brittany Seaton', email: 'brittany@example2.org', dir: 'https://linkedin.com/in/brittanyseaton', role: 'OPT-PARTICIPANT' }
+//     ]
+//   }
+  
+ 
+//   const { error, value } = ics.createEvents([
+//     {
+//       title: 'Lunch',
+//       start: [2018, 1, 15, 12, 15],
+//       duration: { minutes: 45 }
+//     },
+//     {
+//       title: 'Dinner',
+//       start: [2018, 1, 15, 12, 15],
+//       duration: { hours: 1, minutes: 30 }
+//     }
+//   ])
+   
+//   if (error) {
+//     console.log(error)
+//     return
+//   }
+   
+//   console.log(value)
+
+ 
+//   writeFileSync(`${__dirname}/public/event.ics`, value)
+
+
+
+
+
+// app.get('/sendMail',(req,res) => {
+//   // async..await is not allowed in global scope, must use a wrapper
+// let transporter = nodemailer.createTransport({
+//   service : 'gmail',
+//   auth: {
+//     user : 'denna24719999@gmail.com',
+//     pass : 'denna247'
+//   }
+// });
+
+// let mailOptions = {
+//   from : 'denna24719999@gmail.com',
+//   to: 'ntd.codervn@gmail.com',
+//   subject: 'Test mail',
+//   text: 'Hello wolrd',
+//   html: ' <a href="http://localhost:3000/public/event.ics">Dowload file calendar service</a>'
+// }
+
+// transporter.sendMail(mailOptions, (err, data) => {
+//   if(err) {
+//     console.log('Error Occurd', err);
+//   }else {
+//     console.log('Email sent!!!!');
+//   }
+// })
+// res.send('Sent mail successfull !')
+// })
+
+// app.get('/test',(req,res)=>{
+//   res.send('<a href="http://localhost:3000/public/event.ics">Dowload file calendar service</a>')
+// })
