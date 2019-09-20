@@ -1,6 +1,9 @@
 var Crawler = require("crawler");
 const BASE_URL = 'https://www.amazon.com';
 module.exports = function (req,res,next) {
+    try {
+      const {keyword,page} = req.query;
+      let array2 = [];
     var c =  new Crawler({
         maxConnections: 10,
         // This will be called for each crawled page
@@ -12,15 +15,22 @@ module.exports = function (req,res,next) {
             // $ is Cheerio by default
             //a lean implementation of core jQuery designed specifically for the server
             let arrayList = $(".a-size-base.a-link-normal");
-            let array2 = [];
-            for (let index = 0; index < arrayList.length; index++) {
+            
+           
+            console.log(arrayList.length);
+            
+
+            for (let index = 0; index < arrayList.length-2; index++) {
               const element = arrayList[index];
+              
               array2.push(BASE_URL + element.attribs.href);
-    
+              console.log(BASE_URL + element.attribs.href);
     
             }
+
             req.data = array2;
             next();
+            
           }
     
           done();
@@ -28,5 +38,10 @@ module.exports = function (req,res,next) {
         }
       });
     
-    c.queue('https://www.amazon.com/s?k=pant&i=fashion-novelty&bbn=7147445011&rh=p_6%3AATVPDKIKX0DER&dc&qid=1568619049&rnid=2661622011&ref=sr_nr_p_6_1');
+    c.queue(`https://www.amazon.com/s?k=${keyword}&i=fashion&bbn=7141123011&rh=p_6%3AATVPDKIKX0DER&dc&page=${page}`);
+    
+
+    } catch (error) {
+      res.json({msg : 'Connect server falied, please try again'});
+    }
 }
