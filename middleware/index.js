@@ -38,8 +38,8 @@ module.exports = function (req,res,next) {
         }
       });
     
-    c.queue(`https://www.amazon.com/s?k=${keyword}&i=fashion&bbn=7141123011&rh=p_6%3AATVPDKIKX0DER&dc&page=${page}`);
-    
+    c.queue(`https://www.amazon.com/s?k=${keyword}&i=fashion&bbn=7141123011&rh=p_6%3AATVPDKIKX0DER&dc&page=${page}&refresh=2&ref=glow_cls`);
+
 
     } catch (error) {
       res.json({msg : 'Connect server falied, please try again'});
