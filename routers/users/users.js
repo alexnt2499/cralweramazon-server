@@ -40,7 +40,7 @@ const upload = multer({
       lastName
     }
 */
-router.post('/signUp',
+router.get('/signUp',
   [
     check('email', 'Email not empty').not().isEmpty(),
     check('password', 'Password not empty').not().isEmpty(),
@@ -67,7 +67,7 @@ router.post('/signUp',
       email,
       password,
       name
-    } = req.body;
+    } = req.query;
 
     
 
@@ -143,27 +143,26 @@ router.post('/signUp',
     }
 */
 
-router.post('/signIn', [
-  check('email', 'Email not empty').not().isEmpty(),
-  check('password', 'Password not empty').not().isEmpty(),
-  check('email', 'Email invalidate').isEmail(),
-  check('password', 'Password length must be over 6 characters').isLength({
-    min: 6
-  })
+router.get('/signIn', [
+  check('email', 'Email không được trống !').not().isEmpty(),
+  check('password', 'Password không được trống !').not().isEmpty(),
+  check('email', 'Email không đúng định dạng!').isEmail(),
+  
 ], async (req, res) => {
-  console.log(req.body);
+  console.log(req.query);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
 
     return res.json({
-      errors: errors.array()
+      errors: errors.array(),
+      status : 204
     });
   }
 
   const {
     email,
     password
-  } = req.body;
+  } = req.query;
 
 
   try {
@@ -174,15 +173,17 @@ router.post('/signIn', [
     if (userCheck === null) {
       return res.json({
         errors: [{
-          msg: 'Wrong email or password'
-        }]
+          msg: 'Sai email hoặc password'
+        }],
+        status : 204
       });
     }
     if (!bcrypt.compareSync(password, userCheck.password)) {
       return res.json({
         errors: [{
-          msg: 'Wrong email or password'
-        }]
+          msg: 'Sai email hoặc password'
+        }],
+        status : 204
       });
 
     }
@@ -199,7 +200,8 @@ router.post('/signIn', [
       (err, token) => {
         if (err) throw err;
         res.json({
-          token
+          token,
+          status : 200
         });
       }
     )
