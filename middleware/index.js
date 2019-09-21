@@ -19,16 +19,27 @@ module.exports = function (req,res,next) {
            
             console.log(arrayList.length);
             
-
-            for (let index = 0; index < arrayList.length-2; index++) {
-              const element = arrayList[index];
-              
-              array2.push(BASE_URL + element.attribs.href);
-              console.log(BASE_URL + element.attribs.href);
-    
+            if(arrayList.length > 2)
+            {
+              for (let index = 0; index < arrayList.length-2; index++) {
+                const element = arrayList[index];
+                
+                array2.push(BASE_URL + element.attribs.href);
+                
+      
+              }
+            }else {
+              for (let index = 0; index < arrayList.length-1; index++) {
+                const element = arrayList[index];
+                
+                array2.push(BASE_URL + element.attribs.href);
+                
+      
+              }
             }
 
             req.data = array2;
+           
             next();
             
           }
@@ -38,7 +49,7 @@ module.exports = function (req,res,next) {
         }
       });
     
-    c.queue(`https://www.amazon.com/s?k=${keyword}&i=fashion&bbn=7141123011&rh=p_6%3AATVPDKIKX0DER&dc&page=${page}&refresh=2&ref=glow_cls`);
+    c.queue(`https://www.amazon.com/s?k=${keyword}&i=fashion&bbn=7141123011&rh=p_6%3AATVPDKIKX0DER&dc&page=${page}`);
 
 
     } catch (error) {

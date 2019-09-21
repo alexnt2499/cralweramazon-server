@@ -54,7 +54,7 @@ router.get('/getDataInAmazon',midAPI, (req,response) => {
   c.on('drain',function(){
     setTimeout(() => {
       response.json({data : array3})
-    }, 5000);
+    }, 4000);
     
   });
   } catch (error) {

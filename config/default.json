@@ -1,0 +1,4 @@
+{
+    "mongoURI" : "mongodb+srv://manager_1:hunter99@cluster0-uppre.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret" : "nailsswsecrectoken"
+}
