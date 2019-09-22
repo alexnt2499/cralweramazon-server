@@ -228,7 +228,7 @@ router.get('/signIn', [
     }
 
 */
-router.get('/getAllProfileUser', auth, async (req, res) => {
+router.get('/getAllProfileUser', async (req, res) => {
   try {
     let userObj = await USER.findById(req.id).select('-password');
 
@@ -344,41 +344,20 @@ router.get('/getDataUser', auth, async (req, res) => {
 /*
     @api/users/getAllUser
 */
-router.get('/getAllUser', auth, [
-  check('page', 'Page is not empty').not().isEmpty(),
-  check('page', 'Page is number').isNumeric(),
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-
-    return res.json({
-      errors: errors.array()
-    });
-  }
-
+router.get('/getAllUser', async (req, res) => {
+ 
   try {
 
-    const page = req.query.page;
-    if (page < 0) {
-      return res.json({
-        errors: [{
-          msg: 'Page must be greater than or equal to 0 '
-        }]
-      });
-    }
+    
 
-    if (req.role === 'admin') {
-      let AllUser = await USER.find().sort({
-        point: -1
-      }).limit(10).skip(10 * page).select('-password');
+   
+      let AllUser = await USER.find().select('-password');
       res.json({
-        listUser: AllUser
+        listUser: AllUser,
+        status : 200
       });
-    } else {
-      res.json({
-        msg: 'You do not have access to this API'
-      });
-    }
+   
+    
   } catch (error) {
     console.log(error);
     res.status(501).json({
@@ -484,6 +463,17 @@ router.post('/changePassword', auth, [
     });
   }
 
+})
+
+router.get('/deleteUserById', async (req,res) => {
+  try {
+    let deleteUser = await USER.findByIdAndDelete(req.query.id);
+    res.json({msg : 'Xóa thành công',status:200})
+  } catch (error) {
+    res.status(501).json({
+      msg: 'Server error'
+    });
+  }
 })
 
 
