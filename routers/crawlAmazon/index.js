@@ -4,7 +4,7 @@ const router = express.Router();
 const Crawler = require("crawler");
 const midAPI = require("./../../middleware/index");
 const {cutStringRank,cutStringDate,cutURLpng} = require('./../../util/HandleString');
-
+const download = require('image-downloader');
 router.get('/getDataInAmazon',midAPI, (req,response) => {
     const array3 = [];
     console.log('hello')
@@ -53,18 +53,19 @@ router.get('/getDataInAmazon',midAPI, (req,response) => {
 
   c.on('drain',function(){
     setTimeout(() => {
-      response.json({data : array3})
-    }, 4000);
+      
+      response.json({data : array3,status : 200})
+    }, 3000);
     
   });
   } catch (error) {
     console.log(error)
-    response.json({msg : 'Error please try again'});
+    response.json({msg : 'Robot của Amazon đã chặn request vui lòng thử lại sau ít phút',status : 204});
   }
 })
 
 
-router.get("/testAPI", (req, respose) => {
+router.post("/testAPI", (req, respose) => {
     var c = new Crawler({
       maxConnections: 10,
       // This will be called for each crawled page
@@ -106,6 +107,35 @@ router.get("/testAPI", (req, respose) => {
     
     
   });
+
+  
+  
+
+router.post('/DowloadImg',(req,res) => {
+  
+  try {
+    const {listData} = req.body;
+    console.log(listData);
+    
+    for(let i =0;i<listData.length;i++)
+    {
+      download.image({
+        url: `${listData[i].image}`,
+        dest: `download/${listData[i].name}.png`
+      })
+      .then(({ filename, image }) => {
+        console.log('Saved to', filename)  // Saved to /path/to/dest/image.jpg
+      })
+      .catch((err) => console.error(err))
+    }
+
+    res.json({status : 200});
+
+  } catch (error) {
+    console.log(error);
+    res.json({status : 204});
+  }
+})
 
 
 

@@ -42,12 +42,12 @@ const upload = multer({
 */
 router.get('/signUp',
   [
-    check('email', 'Email not empty').not().isEmpty(),
-    check('password', 'Password not empty').not().isEmpty(),
+    check('email', 'Email không được để trống').not().isEmpty(),
+    check('password', 'Password không được để trống').not().isEmpty(),
     
-    check('name', 'Name not empty').not().isEmpty(),
-    check('email', 'Email invalidate').isEmail(),
-    check('password', 'Password length must be over 6 characters').isLength({
+    check('name', 'Name không được để trống').not().isEmpty(),
+    check('email', 'Email sai định dạng').isEmail(),
+    check('password', 'Password phải dài hơn 6 ký tự').isLength({
       min: 6
     })
   ],
@@ -79,7 +79,8 @@ router.get('/signUp',
 
       if (userCheckExist != null) {
         return res.json({errors :
-          [{msg : 'Email already exists'}]
+          [{msg : 'Email đã tồn tại'}],
+          status : 204
         });
       }
 
@@ -104,7 +105,8 @@ router.get('/signUp',
       res.json({
         errors: [{
           msg: 'Server error'
-        }]
+        }],
+        status : 204
       });
     }
     let userCheck = await USER.findOne({
@@ -122,14 +124,17 @@ router.get('/signUp',
       (err, token) => {
         if (err) throw err;
         res.json({
-          token
+          token,
+          status : 200
         });
       }
     )
     }else {
       res.json({errors: [{
         msg: 'Sign up falied'
-      }]})
+      }],
+      status : 204
+    })
     }
     
 
@@ -200,7 +205,7 @@ router.get('/signIn', [
       (err, token) => {
         if (err) throw err;
         res.json({
-          token,
+          token : userCheck,
           status : 200
         });
       }

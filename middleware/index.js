@@ -53,6 +53,6 @@ module.exports = function (req,res,next) {
 
 
     } catch (error) {
-      res.json({msg : 'Connect server falied, please try again'});
+      res.json({msg : 'Gửi yêu cầu đến server thất bại vui lòng thử lại',status : 204});
     }
 }
